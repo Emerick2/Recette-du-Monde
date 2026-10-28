@@ -22,16 +22,43 @@ export class AppServiceUser {
 
     DeleteUser(data : UserDeletionRequest): string {
         // Si l'utilisateur qui doit être supprimé existe.
-        // Si l'utilisateur qui veut supprimé existe
-        // Si l'utilisateur qui veut supprimé à le droit.
+        /*
+        SELECT COUNT(*)
+        FROM user
+        WHERE user.id = {data.idUser_deletion};
+        */
 
+        // ---------------------------------
+        // Si l'utilisateur qui veut supprimé existe
+        /*
+        let email = WhoIAm(hashed_user_want_deletion)
+
+        SELECT COUNT(*)
+        FROM user
+        WHERE user.email = {email} AND ((user.id = {data.idUser_deletion}) OR (user.role = "administrateur" OR user.role = "super_utilisateur"));
+        */
+
+
+        // ---------------------------------
+        // Si l'utilisateur qui veut supprimé à le droit.
         // Supprimer l'utilisateur.
-        return 'Bonjour !';
+        /*
+        DELETE FROM user
+        WHERE user.id = {data.idUser_deletion};
+        */
+
+
+        return '200';
     }
 
     GetUser(data : UserLogin){
         // Si le mot de passe et le mail correspondent bien à un compte
-        
+        /*
+        SELECT COUNT(*)
+        FROM user
+        WHERE user.email = {data.email} AND user.hashed_password = {data.hashed_password};
+        */
+
         return HashPassword(data.email)
         // retourner hashed_user_want_deletion
     }
