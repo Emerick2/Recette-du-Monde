@@ -1,20 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import type { User, UserDeletionRequest, UserLogin } from '../models/User.js';
-import { HashPassword } from './app.service.hashPassword.js';
+import { HashPassword, WhoIAm } from './app.service.hashPassword.js';
+import {JwtService} from '@nestjs/jwt';
 
 @Injectable()
 export class AppServiceUser {
+    constructor(private readonly jwtService: JwtService) {}
+
     PostUser(data : User): string {
-    	return 'Bonjour !';
+        /*
+        data.account_creation_date = Now();
+
+        INSERT INTO genres (name, email, professional, account_creation_date, hashed_password)
+        VALUES (data.name, data.email, data.professional, data.account_creation_date, data.hashed_password);
+        */
+        return '200';
   	}
   
-    CreateAnAccount(user : User): string {
+    async CreateAnAccount(user : User): Promise<string> {
         if (user.name != null && user.name.length >= 3 && user.hashed_password != null && user.hashed_password.length > 8) {
             const hashed_user_want_deletion : string = this.PostUser(user)
             if (hashed_user_want_deletion != '200') {
-              return '404';
+                return '404';
             } else {
-                return hashed_user_want_deletion;
+                return await WhoIAm(user.email, this.jwtService);
             }
         }
         return '200';
