@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import type { User, UserDeletionRequest, UserLogin } from '../models/User.js';
+import { HashPassword } from './app.service.hashPassword.js';
 
 @Injectable()
 export class AppServiceUser {
@@ -29,9 +30,9 @@ export class AppServiceUser {
     }
 
     GetUser(data : UserLogin){
-        data.email
         // Si le mot de passe et le mail correspondent bien à un compte
-
+        
+        return HashPassword(data.email)
         // retourner hashed_user_want_deletion
     }
 }
