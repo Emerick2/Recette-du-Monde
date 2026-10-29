@@ -1,60 +1,64 @@
-# compiled output
-dist/
-node_modules/
-build/
-.next/
+# Dépendances Node.js, dans tous les dossiers
+**/node_modules/
 
-# TypeScript build cache
-*.tsbuildinfo
+# Fichiers générés et compilés, dans tous les dossiers
+**/dist/
+**/build/
+**/.next/
+**/out/
+**/coverage/
+**/.nyc_output/
 
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+# Cache TypeScript
+**/*.tsbuildinfo
+**/next-env.d.ts
 
-# OS
-.DS_Store
+# Variables d'environnement et secrets
+**/.env
+**/.env.*
+!**/.env.example
 
-# Tests
-coverage/
-.nyc_output/
+# Journaux
+**/logs/
+**/*.log
+**/npm-debug.log*
+**/pnpm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/lerna-debug.log*
+**/.pnpm-debug.log*
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
+# Fichiers temporaires et données d'exécution
+**/.temp/
+**/.tmp/
+**/pids/
+**/*.pid
+**/*.pid.lock
+**/*.seed
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# Rapports de diagnostic Node.js
+**/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
+# Systèmes et éditeurs
+**/.DS_Store
+**/.idea/
+**/.vscode/
+**/.project
+**/.classpath
+**/.c9/
+**/*.launch
+**/.settings/
+**/*.sublime-workspace
+**/*.pem
 
-# temp directory
-.temp
-.tmp
+# Yarn
+**/.pnp
+**/.pnp.*
+**/.yarn/*
+!**/.yarn/patches/
+!**/.yarn/plugins/
+!**/.yarn/releases/
+!**/.yarn/versions/
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Diagnostic reports (https://nodejs.org/api/report.html)
-report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+# Vercel
+**/.vercel/
