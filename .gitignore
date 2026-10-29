@@ -1,0 +1,64 @@
+# Dépendances Node.js, dans tous les dossiers
+**/node_modules/
+
+# Fichiers générés et compilés, dans tous les dossiers
+**/dist/
+**/build/
+**/.next/
+**/out/
+**/coverage/
+**/.nyc_output/
+
+# Cache TypeScript
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# Variables d'environnement et secrets
+**/.env
+**/.env.*
+!**/.env.example
+
+# Journaux
+**/logs/
+**/*.log
+**/npm-debug.log*
+**/pnpm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/lerna-debug.log*
+**/.pnpm-debug.log*
+
+# Fichiers temporaires et données d'exécution
+**/.temp/
+**/.tmp/
+**/pids/
+**/*.pid
+**/*.pid.lock
+**/*.seed
+
+# Rapports de diagnostic Node.js
+**/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Systèmes et éditeurs
+**/.DS_Store
+**/.idea/
+**/.vscode/
+**/.project
+**/.classpath
+**/.c9/
+**/*.launch
+**/.settings/
+**/*.sublime-workspace
+**/*.pem
+
+# Yarn
+**/.pnp
+**/.pnp.*
+**/.yarn/*
+!**/.yarn/patches/
+!**/.yarn/plugins/
+!**/.yarn/releases/
+!**/.yarn/versions/
+
+# Vercel
+**/.vercel/

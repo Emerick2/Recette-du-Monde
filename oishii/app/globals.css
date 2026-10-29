@@ -1,0 +1,42 @@
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --color-back-section : bisque;
+  --color-border-section : burlywood;
+  --color-border-input : rgb(196, 134, 54);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#login-page {
+  background-color: var(--color-back-section);
+  border: solid 3px var(--color-border-section);
+  border-radius: 17px;
+
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 80%;
+  max-width: 500px;
+  
+  padding-top: 10px;
+  gap:10px;
+
+  input{
+    width: 80%;
+    max-width: 150px;
+    height: 1.5rem;
+    border: solid 2px;
+    text-align: center;
+    border: solid 3px var(--color-border-input);
+    border-radius: 7px;
+  }
+}
