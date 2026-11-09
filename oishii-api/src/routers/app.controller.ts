@@ -10,10 +10,10 @@ export class AppController {
 		private readonly appServiceUser: AppServiceUser
 	) {}
 
-	@Get()
-	getHello(): string {
-		return this.appService.getHello();
-	}
+	@Get('recettes')
+    getRecettes() {
+        return this.appService.getRecettes();
+    }
 
 	// Se crée un compte :
 	@Post("user")

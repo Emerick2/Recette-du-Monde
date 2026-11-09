@@ -14,9 +14,6 @@ export const HashPassword = async (text : string) => {
   }
 };
 
-/**
- * Attention, l'utilisation de cette fonction comporte des risques. Assurez-vous que l'utilisateur ne pourra pas voir le résultat de la fonction si l'on n'a pas la certitude qu'il est bien l'utilisateur dont il demande l'identifiant.
- */
 export const MakeTheJWT = async (text: string, jwtService: JwtService): Promise<string> => {
     const secret = process.env.JWT_TOKEN_KEY;
     if (!secret) {
@@ -29,9 +26,6 @@ export const MakeTheJWT = async (text: string, jwtService: JwtService): Promise<
     );
 };
 
-/**
- * Vérification du jeton
- */
 export const WhoIAm = async (token: string, jwtService: JwtService): Promise<string> => {
     const secret = process.env.JWT_TOKEN_KEY;
     if (!secret) {
