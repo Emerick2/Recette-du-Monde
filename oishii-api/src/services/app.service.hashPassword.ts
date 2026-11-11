@@ -3,7 +3,8 @@ import { UnauthorizedException } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
 
-export const HashPassword = async (text : string) => {
+// Hacher les mots de passe avant l'ajout dans la base de données
+export const HashPassword = async (text: string) => {
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(text, salt);
@@ -36,6 +37,6 @@ export const WhoIAm = async (token: string, jwtService: JwtService): Promise<str
         const payload = await jwtService.verifyAsync<{ sub: string }>(token, { secret });
         return payload.sub;
     } catch (error) {
-        throw new UnauthorizedException('Jeton invalide ou expiré'); // Erreur 401
+        throw new UnauthorizedException('Jeton invalide ou expiré');
     }
 };
