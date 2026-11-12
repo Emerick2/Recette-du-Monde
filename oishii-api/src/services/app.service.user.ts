@@ -25,6 +25,28 @@ export class AppServiceUser {
         await this.connexion.end();
     }
 
+    async NameOfUserAlreadyUse(name : String) : Promise<boolean> {
+        const query = `
+            SELECT COUNT(*) as total 
+            FROM utilisateur u 
+            WHERE u.nom = ?;
+        `;
+        const [rows] : any = await this.connexion.query(query, [name]);
+        const userExists : boolean = rows[0].total > 0;
+        return userExists;
+    } 
+
+    async EMailOfUserAlreadyUse(name : String) : Promise<boolean> {
+        const query = `
+            SELECT COUNT(*) as total 
+            FROM utilisateur u 
+            WHERE u.email = ?;
+        `;
+        const [rows] : any = await this.connexion.query(query, [name]);
+        const userExists : boolean = rows[0].total > 0;
+        return userExists;
+    } 
+
     async PostUser(data : User): Promise<string> {
         try {
             const query = `
@@ -41,10 +63,19 @@ export class AppServiceUser {
         }
   	}
   
-    async CreateAnAccount(user : User): Promise<string> {
+    async CreateAnAccount(user : User): Promise<Object> {
         if (user.name != null && user.name.length >= 3 && user.hashed_password != null && user.hashed_password.length > 8) {
             if (user.name.includes("@") || !user.email.includes("@")) {
                 throw new UnauthorizedException("L'e-mail ou le nom d'utilisateur est invalide.");
+            }
+            const nameOfUserAlreadyUse : boolean = await this.NameOfUserAlreadyUse(user.name);
+            if (nameOfUserAlreadyUse) {
+                throw new BadRequestException("Ce nom d'utilisateur est déjà pris.");
+            }
+
+            const emailOfUserAlreadyUse : boolean = await this.EMailOfUserAlreadyUse(user.email);
+            if (emailOfUserAlreadyUse) {
+                throw new BadRequestException("Cet e-mail est déjà pris.");
             }
 
             user.hashed_password = await HashPassword(user.hashed_password);
@@ -52,7 +83,8 @@ export class AppServiceUser {
             if (hashed_user_want_deletion != '201') {
                 throw new BadRequestException("Ce compte existe déjà.");
             } else {
-                return await MakeTheJWT(user.email, this.jwtService);
+                const jwtValue = await MakeTheJWT(user.email, this.jwtService);
+                return {message: jwtValue, statusCode: 200};
             }
         } else {
             throw new BadRequestException("Valeurs du formulaire incorrectes.");
@@ -99,7 +131,7 @@ export class AppServiceUser {
         return '200';
     }
 
-    async GetUser(data: UserLogin): Promise<string> {
+    async GetUser(data: UserLogin): Promise<Object> {
         const query = `
             SELECT mot_de_passe_hash
             FROM utilisateur
@@ -121,6 +153,6 @@ export class AppServiceUser {
             throw new UnauthorizedException("Adresse e-mail ou mot de passe invalide.");
         }
 
-        return MakeTheJWT(data.email, this.jwtService);
+        return {message: MakeTheJWT(data.email, this.jwtService), statusCode: 200};
     }
 }

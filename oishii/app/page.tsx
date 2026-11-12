@@ -35,8 +35,8 @@ export default function Home() {
         console.log("Statut HTTP :", response.status);
         setStatusCreateAnAccount("Erreur : "+ result.message);
       } else {
-        console.log('Succès :', result);
-        setToken(result);
+        console.log('Succès :', result.message);
+        setToken(result.message);
         setStatusCreateAnAccount('Compte créé avec succès !');
       }
     } catch (error) {
@@ -71,8 +71,8 @@ export default function Home() {
         console.log("Statut HTTP :", response.status);
         setStatusLogin("Erreur : "+result.message);
       } else {
-        console.log('Succès :', result);
-        setToken(result);
+        console.log('Succès :', result.message);
+        setToken(result.message);
         setStatusLogin('Compte connecter avec succès !');
       }
     } catch (error) {
