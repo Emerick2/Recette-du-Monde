@@ -37,8 +37,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE utilisateur (
   id                   INT UNSIGNED  NOT NULL AUTO_INCREMENT,
-  nom                  VARCHAR(50)   NOT NULL,
-  email                VARCHAR(50)   NOT NULL,
+  nom                  VARCHAR(100)  NOT NULL,
+  email                VARCHAR(254)  NOT NULL,
   photo_profil         VARCHAR(255)  NULL,
   description          TEXT          NULL,
   professionnel        BOOLEAN       NOT NULL DEFAULT FALSE,
@@ -48,7 +48,8 @@ CREATE TABLE utilisateur (
   mot_de_passe_hash    VARCHAR(255)  NOT NULL,
 
   CONSTRAINT pk_utilisateur     PRIMARY KEY (id),
-  CONSTRAINT uq_utilisateur_nom UNIQUE (nom)
+  CONSTRAINT uq_utilisateur_nom UNIQUE (nom),
+  CONSTRAINT uq_utilisateur_email UNIQUE (email)
 ) ENGINE = InnoDB;
 
 
