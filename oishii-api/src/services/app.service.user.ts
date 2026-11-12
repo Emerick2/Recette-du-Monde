@@ -141,7 +141,7 @@ export class AppServiceUser {
         const [rows]: any = await this.connexion.query(query, [data.email, data.email]);
 
         if (rows.length === 0) {
-            throw new UnauthorizedException("Identifiants invalides.");
+            throw new UnauthorizedException("Adresse e-mail ou mot de passe invalide.");
         }
 
         const motDePasseValide = await bcrypt.compare(
