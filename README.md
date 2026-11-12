@@ -27,7 +27,7 @@ Le script [recettes_du_monde.sql](recettes_du_monde.sql) crée la base `recette_
 - `note`
 - `recette_favorite`
 
-### Installation
+### Installation de la base de donnée
 
 Avec l'authentification `unix_socket` (configuration par défaut sur Debian/Ubuntu/WSL) :
 
@@ -43,7 +43,7 @@ mariadb -u root -p < recettes_du_monde.sql
 
 > ⚠️ Le script est rejouable : il supprime puis recrée toutes les tables à chaque exécution. Les données existantes de la base `recette_du_monde` sont perdues.
 
-## Installation du projet
+## Demmarage du projet
 
 > Pour lancer l'API
 ```bash
