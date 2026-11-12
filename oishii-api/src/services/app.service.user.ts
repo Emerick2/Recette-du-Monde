@@ -43,6 +43,10 @@ export class AppServiceUser {
   
     async CreateAnAccount(user : User): Promise<string> {
         if (user.name != null && user.name.length >= 3 && user.hashed_password != null && user.hashed_password.length > 8) {
+            if (user.name.includes("@") || !user.email.includes("@")) {
+                throw new UnauthorizedException("L'e-mail ou le nom d'utilisateur est invalide.");
+            }
+
             user.hashed_password = await HashPassword(user.hashed_password);
             const hashed_user_want_deletion : string = await this.PostUser(user)
             if (hashed_user_want_deletion != '201') {
@@ -99,10 +103,10 @@ export class AppServiceUser {
         const query = `
             SELECT mot_de_passe_hash
             FROM utilisateur
-            WHERE email = ?;
+            WHERE email = ? OR nom = ?;
         `;
 
-        const [rows]: any = await this.connexion.query(query, [data.email]);
+        const [rows]: any = await this.connexion.query(query, [data.email, data.email]);
 
         if (rows.length === 0) {
             throw new UnauthorizedException("Identifiants invalides.");

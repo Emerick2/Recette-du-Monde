@@ -4,6 +4,8 @@ import {SyntheticEvent, useState} from 'react';
 export default function Home() {
   const [token, setToken] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [statusCreateAnAccount, setStatusCreateAnAccount] = useState<string>("");
+  const [statusLogin, setStatusLogin] = useState<string>("");
 
   const HandleSubmitCreateAnAccount = async (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,18 +30,18 @@ export default function Home() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.text();
+      const result = await response.json();
       if (!response.ok) {
         console.log("Statut HTTP :", response.status);
-        alert("Erreur : "+result);
+        setStatusCreateAnAccount("Erreur : "+ result.message);
       } else {
         console.log('Succès :', result);
         setToken(result);
-        alert('Compte créé avec succès !');
+        setStatusCreateAnAccount('Compte créé avec succès !');
       }
     } catch (error) {
       console.error('Erreur lors de la requête :', error);
-      alert("Une erreur est survenue lors de l'inscription.");
+      setStatusCreateAnAccount("Une erreur est survenue lors de l'inscription.");
     }
   };
 
@@ -64,18 +66,18 @@ export default function Home() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.text();
+      const result = await response.json();
       if (!response.ok) {
         console.log("Statut HTTP :", response.status);
-        alert("Erreur : "+result);
+        setStatusLogin("Erreur : "+result.message);
       } else {
         console.log('Succès :', result);
         setToken(result);
-        alert('Compte connecter avec succès !');
+        setStatusLogin('Compte connecter avec succès !');
       }
     } catch (error) {
       console.error('Erreur lors de la requête :', error);
-      alert("Une erreur est survenue lors de l'inscription.");
+      setStatusLogin("Une erreur est survenue lors de l'inscription.");
     }
   };
 
@@ -90,15 +92,17 @@ export default function Home() {
           <input name="professional" type="checkbox" id="professional" />
           <label htmlFor="professional">Vous êtes professionnel dans le milieu de la cuisine ?</label>
           <button type="submit">Envoyer</button>
+          <p>{statusCreateAnAccount}</p>
         </form>
 
         <br/>
 
         <h2>Se connecter</h2>
         <form id="login-page" onSubmit={HandleSubmitLogin}>
-          <input name="email" type="email" minLength={3} placeholder="Votre e-mail" required />
+          <input name="email" minLength={3} placeholder="Votre e-mail ou votre nom d'utilisateur" required />
           <input name="hashed_password" type="password" minLength={8} placeholder="Votre mot de passe" required />
           <button type="submit">Envoyer</button>
+          <p>{statusLogin}</p>
         </form>
 
         {token == "" ? null :
