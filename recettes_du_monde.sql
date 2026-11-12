@@ -38,6 +38,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 CREATE TABLE utilisateur (
   id                   INT UNSIGNED  NOT NULL AUTO_INCREMENT,
   nom                  VARCHAR(50)   NOT NULL,
+  email                VARCHAR(50)   NOT NULL,
   photo_profil         VARCHAR(255)  NULL,
   description          TEXT          NULL,
   professionnel        BOOLEAN       NOT NULL DEFAULT FALSE,
@@ -183,11 +184,11 @@ CREATE TABLE preparation (
 --    hash bcrypt/argon2 générés par l'API.
 -- ---------------------------------------------------------------------
 
-INSERT INTO utilisateur (id, nom, description, professionnel, role, mot_de_passe_hash) VALUES
-  (1, 'Alice',   'Admin du site',          FALSE, 'super_utilisateur', '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxha'),
-  (2, 'Bob',     'Modérateur',             FALSE, 'administrateur',    '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxhb'),
-  (3, 'Candice', 'Cheffe à domicile',      TRUE,  'utilisateur',       '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxhc'),
-  (4, 'David',   'Amateur de cuisine',     FALSE, 'utilisateur',       '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxhd');
+INSERT INTO utilisateur (id, nom, email, description, professionnel, role, mot_de_passe_hash) VALUES
+  (1, 'Alice',  'alice@admin.fr' ,  'Admin du site',          FALSE, 'super_utilisateur', '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxha'),
+  (2, 'Bob',    'bob@modo.fr'    ,  'Modérateur',             FALSE, 'administrateur',    '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxhb'),
+  (3, 'Candice','alice@chef.fr'  , 'Cheffe à domicile',      TRUE,  'utilisateur',       '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxhc'),
+  (4, 'David',  'alice@user.fr'  ,'Amateur de cuisine',     FALSE, 'utilisateur',       '$2b$10$fauxhashfauxhashfauxhashfauxhashfauxhashfauxhd');
 
 -- Recettes insérées SANS vignette d'abord (la vignette n'existe pas encore)
 INSERT INTO recette (id, id_auteur, titre, description, categorie_moment, categorie_type,
