@@ -3,7 +3,8 @@ import { UnauthorizedException } from '@nestjs/common';
 import bcrypt from 'bcrypt';
 const saltRounds = 10;
 
-export const HashPassword = async (text : string) => {
+// Hacher les mots de passe avant l'ajout dans la base de données
+export const HashPassword = async (text: string) => {
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(text, salt);
@@ -14,9 +15,6 @@ export const HashPassword = async (text : string) => {
   }
 };
 
-/**
- * Attention, l'utilisation de cette fonction comporte des risques. Assurez-vous que l'utilisateur ne pourra pas voir le résultat de la fonction si l'on n'a pas la certitude qu'il est bien l'utilisateur dont il demande l'identifiant.
- */
 export const MakeTheJWT = async (text: string, jwtService: JwtService): Promise<string> => {
     const secret = process.env.JWT_TOKEN_KEY;
     if (!secret) {
@@ -29,9 +27,6 @@ export const MakeTheJWT = async (text: string, jwtService: JwtService): Promise<
     );
 };
 
-/**
- * Vérification du jeton
- */
 export const WhoIAm = async (token: string, jwtService: JwtService): Promise<string> => {
     const secret = process.env.JWT_TOKEN_KEY;
     if (!secret) {
@@ -42,6 +37,6 @@ export const WhoIAm = async (token: string, jwtService: JwtService): Promise<str
         const payload = await jwtService.verifyAsync<{ sub: string }>(token, { secret });
         return payload.sub;
     } catch (error) {
-        throw new UnauthorizedException('Jeton invalide ou expiré'); // Erreur 401
+        throw new UnauthorizedException('Jeton invalide ou expiré');
     }
 };
