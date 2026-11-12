@@ -70,6 +70,17 @@ npm run dev
 | Amaury A. | Database, |
 | Paul-élie K.| À compléter |
 
+
+## Nrome de commit
+
+| TAG | description |
+|-----|-------------|
+| [ADD] | Ajouts de code importants|
+| [FIX] | Corection de bug/supression d'erreur/code mort|
+| [CHORE] | Changement scementiques |
+| [DOCS] | Changementdans la documentation |
+| [DELETE] | Supression importante |
+
 ## Licence
 
 Voir le fichier [LICENSE](LICENSE).
