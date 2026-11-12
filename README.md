@@ -43,7 +43,7 @@ mariadb -u root -p < recettes_du_monde.sql
 
 > ⚠️ Le script est rejouable : il supprime puis recrée toutes les tables à chaque exécution. Les données existantes de la base `recette_du_monde` sont perdues.
 
-## Démmarage du projet
+## Démarrage du projet
 
 > Pour lancer l'API
 ```bash
