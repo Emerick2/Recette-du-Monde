@@ -1,0 +1,28 @@
+#login-page {
+  background-color: var(--color-brand-background);
+  border: solid 3px var(--color-brand-primary);
+  border-radius: 17px;
+
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 80%;
+  max-width: 500px;
+  
+  padding-top: 10px;
+  gap:10px;
+
+  input{
+    width: 80%;
+    max-width: 150px;
+    height: 1.5rem;
+    border: solid 2px;
+    text-align: center;
+    border: solid 3px var(--color-brand-primary);
+    border-radius: 7px;
+  }
+}

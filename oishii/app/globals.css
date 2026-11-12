@@ -1,42 +1,40 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --color-back-section : bisque;
-  --color-border-section : burlywood;
-  --color-border-input : rgb(196, 134, 54);
+    /* Palette Oishii */
+    /* brand */
+    --color-brand-primary: #d97724;
+    --color-brand-hover: #b85e12;
+    --color-brand-background: bisque;
+    --color-brand-border: rgb(225, 185, 137);
+    --color-brand-accent: #f39c12;
+    --color-brand-soft: #fbe3c7;
+    --background: #fff8ee;
+
+    /* text */
+    --color-text-primary: #2c1d11;
+    --color-text-muted: #7a6152;
+    --color-text-subtle: #b09080;
+
+    /* color */
+    --color-surface: #ffffff;
+    --color-surface-subtle: #f5ede4;
+    --color-border: #e8d8cc;
+    --color-danger: #ef4444;
+    --shadow-brand-soft: 0 10px 25px rgba(217, 119, 36, 0.12);
+
+    /* Formes et structure */
+    --radius-small: 0.5rem;
+    --radius-pill: 2.5rem;
+    --layout-header-height: 5rem;
+    --layout-medallium-navigation-height: 4.375rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#login-page {
-  background-color: var(--color-back-section);
-  border: solid 3px var(--color-border-section);
-  border-radius: 17px;
-
-  display: flex;
-  margin-left: auto;
-  margin-right: auto;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  width: 80%;
-  max-width: 500px;
-  
-  padding-top: 10px;
-  gap:10px;
-
-  input{
-    width: 80%;
-    max-width: 150px;
-    height: 1.5rem;
-    border: solid 2px;
-    text-align: center;
-    border: solid 3px var(--color-border-input);
-    border-radius: 7px;
-  }
+h1, h2, h3 {
+  text-align: center;
 }
+
