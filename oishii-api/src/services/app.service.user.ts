@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import type { User, UserDeletionRequest, UserLogin } from '../models/User.js';
 import { HashPassword, MakeTheJWT, WhoIAm } from './app.service.hashPassword.js';
 import {JwtService} from '@nestjs/jwt';
 import mysql from 'mysql2/promise';
 import { ConfigService } from '@nestjs/config';
+import bcrypt from 'bcrypt';
 
 @Injectable()
 export class AppServiceUser {
@@ -25,26 +26,33 @@ export class AppServiceUser {
     }
 
     async PostUser(data : User): Promise<string> {
-        const query = `
-            INSERT INTO utilisateur (nom, email, professionnel, mot_de_passe_hash)
-            VALUES (?, ?, ?, ?);
-        `
+        try {
+            const query = `
+                INSERT INTO utilisateur (nom, email, professionnel, mot_de_passe_hash)
+                VALUES (?, ?, ?, ?);
+            `
 
-        const [rows]: any = await this.connexion.query(query, [data.name, data.email, data.professional, data.hashed_password]);   
-
-        return '200';
+            await this.connexion.query(query, [data.name, data.email, data.professional, data.hashed_password]);   
+            
+            return '201';
+        } catch (error) {
+            console.error("Erreur lors de la création du compte :", error);
+            return '500';
+        }
   	}
   
     async CreateAnAccount(user : User): Promise<string> {
         if (user.name != null && user.name.length >= 3 && user.hashed_password != null && user.hashed_password.length > 8) {
+            user.hashed_password = await HashPassword(user.hashed_password);
             const hashed_user_want_deletion : string = await this.PostUser(user)
-            if (hashed_user_want_deletion != '200') {
-                return '404';
+            if (hashed_user_want_deletion != '201') {
+                throw new BadRequestException("Ce compte existe déjà.");
             } else {
                 return await MakeTheJWT(user.email, this.jwtService);
             }
+        } else {
+            throw new BadRequestException("Valeurs du formulaire incorrectes.");
         }
-        return '405';
     }
 
     async DeleteUser(data : UserDeletionRequest): Promise<string> {
@@ -89,17 +97,24 @@ export class AppServiceUser {
 
     async GetUser(data: UserLogin): Promise<string> {
         const query = `
-            SELECT COUNT(*) as total 
-            FROM utilisateur u 
-            WHERE u.email = ? AND u.mot_de_passe_hash = ?
+            SELECT mot_de_passe_hash
+            FROM utilisateur
+            WHERE email = ?;
         `;
 
-        const [rows]: any = await this.connexion.query(query, [data.email, data.hashed_password]);
+        const [rows]: any = await this.connexion.query(query, [data.email]);
 
-        const userExists = rows[0].total > 0;
+        if (rows.length === 0) {
+            throw new UnauthorizedException("Identifiants invalides.");
+        }
 
-        if (!userExists) {
-            throw new Error("Identifiants invalides");
+        const motDePasseValide = await bcrypt.compare(
+            data.hashed_password,
+            rows[0].mot_de_passe_hash
+        );
+
+        if (!motDePasseValide) {
+            throw new UnauthorizedException("Adresse e-mail ou mot de passe invalide.");
         }
 
         return MakeTheJWT(data.email, this.jwtService);

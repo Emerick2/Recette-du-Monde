@@ -28,7 +28,7 @@ export class AppController {
     }
 
 	// Se connecter.
-	@Get("user")
+	@Post("user/login")
 	GetUser(@Body() donnees: UserLogin) {
 		return this.appServiceUser.GetUser(donnees);
     }
