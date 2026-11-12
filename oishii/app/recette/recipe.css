@@ -1,0 +1,32 @@
+#main-image-illustration-section{
+    background-color: gainsboro;
+    width: 90%;
+    max-width: 650px;
+    height: auto;
+    aspect-ratio: 16/9;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 4px var(--color-brand-primary);
+    border-radius: 18px;
+    justify-content: center;
+    align-items: center;
+}
+
+#quick-information-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    .icone{
+        width: 20px;
+        height: 20px;
+        background-color: red;
+    }
+
+    span{
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
