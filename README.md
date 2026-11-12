@@ -12,3 +12,8 @@ npm run start:dev
 cd ./oishii/
 npm run dev
 ```
+
+### Réponse en JSON de l'API
+```json
+{message: '', error: 'Bad Request', statusCode: 400}
+```
