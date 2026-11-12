@@ -66,8 +66,8 @@ npm run dev
 
 | Membre | Missions |
 |--------|----------|
-| Emerick P. | API, |
-| Amaury A. | Database, |
+| Emerick P. | API, login, |
+| Amaury A. | Database, Readme, |
 | Paul-élie K.| À compléter |
 
 
