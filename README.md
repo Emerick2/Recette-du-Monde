@@ -71,7 +71,7 @@ npm run dev
 | Paul-élie K.| À compléter |
 
 
-## Nrome de commit
+## Norme de commit
 
 | TAG | description |
 |-----|-------------|
