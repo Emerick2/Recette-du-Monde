@@ -1,13 +1,15 @@
 import { Controller, Get, Post, Body, Delete } from '@nestjs/common';
 import { AppService } from '../services/app.service.js';
 import { AppServiceUser } from '../services/app.service.user.js';
+import { AppServiceRecipe } from '../services/app.service.recipe.js';
 import type { User, UserDeletionRequest, UserLogin } from '../models/User.js';
 
 @Controller()
 export class AppController {
 	constructor(
 		private readonly appService: AppService,
-		private readonly appServiceUser: AppServiceUser
+		private readonly appServiceUser: AppServiceUser,
+		private readonly appServiceRecipe: AppServiceRecipe
 	) {}
 
 	@Get('recettes')
@@ -31,6 +33,12 @@ export class AppController {
 	@Post("user/login")
 	GetUser(@Body() donnees: UserLogin) {
 		return this.appServiceUser.GetUser(donnees);
+    }
+
+	// Noter une recette.
+	@Post("recipe/rating")
+	RecipeRating(@Body() target: number, id_recipe : number, token_jwt_user:string) {
+		return this.appServiceRecipe.RecipeRating(target, id_recipe, token_jwt_user);
     }
 }
 

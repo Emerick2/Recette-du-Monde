@@ -1,12 +1,88 @@
 'use client';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Recipe} from "../Interface";
 import "./recipe.css";
+
+export const RecipeRating = async (target : number, setStar1: (value: string) => void, setStar2: (value: string) => void, setStar3: (value: string) => void, setStar4: (value: string) => void, setStar5: (value: string) => void, ) => {
+    const starOff = "/picture/star/star-off-border.png";
+    const starOn = "/picture/star/star-on-yellow-border.png";
+    if (target < 1) target = 1;
+    if (target > 5) target = 5;
+
+    switch(target) {
+        case 1 :
+            setStar1(starOn);
+            setStar2(starOff);
+            setStar3(starOff);
+            setStar4(starOff);
+            setStar5(starOff);
+            break;
+        case 2 :
+            setStar1(starOn);
+            setStar2(starOn);
+            setStar3(starOff);
+            setStar4(starOff);
+            setStar5(starOff);
+            break;
+        case 3 :
+            setStar1(starOn);
+            setStar2(starOn);
+            setStar3(starOn);
+            setStar4(starOff);
+            setStar5(starOff);
+            break;
+        case 4 :
+            setStar1(starOn);
+            setStar2(starOn);
+            setStar3(starOn);
+            setStar4(starOn);
+            setStar5(starOff);
+            break;
+        case 5 :
+            setStar1(starOn);
+            setStar2(starOn);
+            setStar3(starOn);
+            setStar4(starOn);
+            setStar5(starOn);
+            break;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3001/recipe/rating', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({"target":target}),
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+            console.log("Statut HTTP :", response.status);
+        } else {
+            console.log('Succès :', result.message);
+        }
+    } catch (error) {
+        console.error('Erreur lors de la requête :', error);
+    }
+}
+
 
 // export default function Recette(data : Recipe) {
 export default function Recette() {
     const [dishPortionSize, setDishPortionSize] = useState<number>(1);
     const [dishPortionSizeInput, setDishPortionSizeInput] = useState<string>("1");
+    
+    const starOff = "/picture/star/star-off-border.png";
+    const [star1, setStar1] = useState<string>(starOff);
+    const [star2, setStar2] = useState<string>(starOff);
+    const [star3, setStar3] = useState<string>(starOff);
+    const [star4, setStar4] = useState<string>(starOff);
+    const [star5, setStar5] = useState<string>(starOff);
+    
+    useEffect(() => {
+        RecipeRating(3, setStar1, setStar2, setStar3, setStar4, setStar5);
+    }, []);
 
     // Recette exemple :
     const data : Recipe = {
@@ -198,6 +274,21 @@ export default function Recette() {
                 </section>
             </section>
 
+            <section id="note-section">
+                <article className="name-of-a-part">
+                    <img src="/picture/icone/rating.png"/>
+                    <h2>Noter</h2>
+                    <hr/>
+                </article>
+                <div id="the-star">
+                    <img src={star1} alt="Étoile" onClick={() => {RecipeRating(1, setStar1, setStar2, setStar3, setStar4, setStar5);}}/>
+                    <img src={star2} alt="Étoile" onClick={() => {RecipeRating(2, setStar1, setStar2, setStar3, setStar4, setStar5);}}/>
+                    <img src={star3} alt="Étoile" onClick={() => {RecipeRating(3, setStar1, setStar2, setStar3, setStar4, setStar5);}}/>
+                    <img src={star4} alt="Étoile" onClick={() => {RecipeRating(4, setStar1, setStar2, setStar3, setStar4, setStar5);}}/>
+                    <img src={star5} alt="Étoile" onClick={() => {RecipeRating(5, setStar1, setStar2, setStar3, setStar4, setStar5);}}/>
+                </div>
+                <br/><br/><br/><br/><br/>
+            </section>
         </div>
     );
 }
