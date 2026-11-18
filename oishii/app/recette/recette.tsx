@@ -110,19 +110,19 @@ export default function Recette() {
         <>
             <h2>{data.title}</h2>
             <section id="quick-information-section">
-                <img className="icone" alt="Icône du temps de préparation"/>
+                <img className="icone" src="lunch-time.png" alt="Icône du temps de préparation"/>
                 <p>{data.preparation_time + data.cooking_time + data.rest_duration}</p>
                 <span>•</span>
-                <img className="icone" alt="Icône du niveau de difficulté"/>
+                <img className="icone" src="difficulty.png" alt="Icône du niveau de difficulté"/>
                 <p>{data.difficulty}</p>
                 <span>•</span>
-                <img className="icone" alt="Icône du prix de la recette"/>
+                <img className="icone" src="price.png" alt="Icône du prix de la recette"/>
                 <p>{data.price}</p>
             </section>
 
             <section id="Ingredients section">
                 <article className="name-of-a-part">
-                    <img alt=""/>
+                    <img src="food-ingredient.png"/>
                     <h2>Ingrédients</h2>
                     <hr/>
                 </article>
@@ -166,7 +166,7 @@ export default function Recette() {
 
             <section id="Preparation section">
                 <article className="name-of-a-part">
-                    <img alt=""/>
+                    <img src="food-preparation.png"/>
                     <h2>Préparation</h2>
                     <hr/>
                 </article>
