@@ -157,7 +157,7 @@ export default function Recette() {
                         {data.dish_ingredient.map((e, index) => (
                             <article key={index} className="food-item">
                                 <img alt={"Illustration de "+e.name} src={e.name}/>
-                                <p>{e.quantity + " " +e.unit_of_measurement} de <span className="nameFood">{e.name}</span></p>
+                                <p>{e.quantity*dishPortionSize + " " +e.unit_of_measurement} de <span className="nameFood">{e.name}</span></p>
                             </article>
                         ))}
                     </section>
