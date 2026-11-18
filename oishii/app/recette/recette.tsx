@@ -107,7 +107,7 @@ export default function Recette() {
     }
 
     return (
-        <>
+        <div className="part">
             <h2>{data.title}</h2>
             <section id="quick-information-section">
                 <img className="icone" src="lunch-time.png" alt="Icône du temps de préparation"/>
@@ -156,8 +156,8 @@ export default function Recette() {
                     <section id="the-ingredients">
                         {data.dish_ingredient.map((e, index) => (
                             <article key={index} className="food-item">
-                                <img alt={"Illustration de "+e.name} src={e.name}/>
-                                <p>{e.quantity*dishPortionSize + " " +e.unit_of_measurement} de <span className="nameFood">{e.name}</span></p>
+                                <img alt={"Illustration : "+e.name} src={e.name}/>
+                                <p>{e.quantity*dishPortionSize + " " +e.unit_of_measurement} : <span className="nameFood">{e.name}</span></p>
                             </article>
                         ))}
                     </section>
@@ -198,6 +198,6 @@ export default function Recette() {
                 </section>
             </section>
 
-        </>
+        </div>
     );
 }
