@@ -21,7 +21,33 @@ export default function Recette() {
             account_creation_date : "",
             hashed_password : "",
         },
-        dish_ingredient: [],
+        dish_ingredient: [
+            {
+                name:"Sucre",
+                quantity:104,
+                unit_of_measurement:"g",
+            },
+            {
+                name:"Beurre",
+                quantity:108,
+                unit_of_measurement:"g",
+            },
+            {
+                name:"Farine",
+                quantity:215,
+                unit_of_measurement:"g",
+            },
+            {
+                name:"Oeuf",
+                quantity:1,
+                unit_of_measurement:"",
+            },
+            {
+                name:"Sucre vanillé",
+                quantity:1,
+                unit_of_measurement:"",
+            }
+        ],
         notes : [2,3,3,3,1],
         preparation : [],
         product_thumbnail : "https://assets.afcdn.com/recipe/20190704/94700_w300h300c1cx2592cy1728cxt0cyt0cxb5184cyb3456.webp",
@@ -73,11 +99,12 @@ export default function Recette() {
                         const number = parseInt(e.target.value)
                         if (number == null || isNaN(number)){
                             setDishPortionSize(1);
+                            setDishPortionSizeInput(e.target.value);
                         }
                         else if (number >= 1 && number<=999){
                             setDishPortionSize(number);
+                            setDishPortionSizeInput(e.target.value);
                         }
-                        setDishPortionSizeInput(e.target.value);
                     }}/>
                     <input type="button" value="+" onClick={() => {
                         if (dishPortionSize<999){
@@ -87,6 +114,37 @@ export default function Recette() {
                     }}/>
                 </form>
                 <p>{dishPortionSize}</p>
+                <section id="the-ingredients">
+                    {data.dish_ingredient.map((e, index) => (
+                        <article key={index}>
+                            <img alt={"Illustration de "+e.name} src={e.name}/>
+                            <p>{e.quantity + " " +e.unit_of_measurement}</p>
+                            <p>{e.name}</p>
+                        </article>
+                    ))}
+                </section>
+            </section>
+
+            <section id="Preparation section">
+                <h2>Préparation</h2>
+                <article id="the-perparation">
+                    <p>Temps total : {data.preparation_time + data.cooking_time + data.rest_duration}</p>
+                    <hr/>
+                    <div>
+                        <article>
+                            <p>Préparation :</p>
+                            {data.preparation_time > 0 ? <p>{data.preparation_time} min</p> : <p>-</p>}
+                        </article>
+                        <article>
+                            <p>Repos :</p>
+                            {data.rest_duration > 0 ? <p>{data.rest_duration} min</p> : <p>-</p>}
+                        </article>
+                        <article>
+                            <p>Cuisson :</p>
+                            {data.cooking_time > 0 ? <p>{data.cooking_time} min</p> : <p>-</p>}
+                        </article>
+                    </div>
+                </article>
             </section>
         </>
     );
